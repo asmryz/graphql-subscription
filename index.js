@@ -6,9 +6,10 @@ const { execute, subscribe } = require('graphql')
 const { ApolloServer } = require('apollo-server-express')
 const mongoose = require('mongoose');
 const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers')
+const resolvers = require('./graphql/resolvers');
 
-const MONGODB_URI = "mongodb+srv://dbUser:dbUser@cluster0.enbv6.mongodb.net/Messenger?retryWrites=true&w=majority";
+//const MONGODB_URI = "mongodb+srv://dbUser:dbUser@cluster0.enbv6.mongodb.net/Messenger?retryWrites=true&w=majority";
+const MONGODB_URI = "mongodb://localhost:27017/Messenger";
 
 
     (async function () {
@@ -42,11 +43,7 @@ const MONGODB_URI = "mongodb+srv://dbUser:dbUser@cluster0.enbv6.mongodb.net/Mess
 
             await server.start();
             server.applyMiddleware({ app });
-            mongoose.connect(MONGODB_URI, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-
-            });
+            mongoose.connect(MONGODB_URI);
 
             const PORT = 4000;
             httpServer.listen(PORT, () => {
